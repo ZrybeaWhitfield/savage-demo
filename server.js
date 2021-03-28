@@ -2,19 +2,19 @@ const express = require('express')
 const app = express()
 const bodyParser = require('body-parser')
 const MongoClient = require('mongodb').MongoClient
+var configDB = require('./config/database.js');
 
 var db, collection;
 
-const url = "mongodb+srv://demo:demo123@cluster0.yvuyn.mongodb.net/myFirstDatabase?retryWrites=true&w=majority";
-const dbName = "demo";
+
 
 app.listen(3000, () => {
-    MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, (error, client) => {
+    MongoClient.connect(configDB.url, { useNewUrlParser: true, useUnifiedTopology: true }, (error, client) => {
         if(error) {
             throw error;
         }
-        db = client.db(dbName);
-        console.log("Connected to `" + dbName + "`!");
+        db = client.db(configDB.dbName);
+        console.log("Connected to `" + configDB.dbName + "`!");
     });
 });
 
